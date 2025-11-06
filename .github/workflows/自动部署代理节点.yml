@@ -85,7 +85,7 @@ jobs:
         case "${{ github.event.inputs.region }}" in
           # 免费区域
           "SG(free)")
-            echo "CF_API=https://api.cf.ap21.hana.ondemand.com" >> $GITHUB_ENV
+            echo "CF_API=https://api.cf.ae01.hana.ondemand.com" >> $GITHUB_ENV
             echo "APP_NAME=free-sg$RANDOM_STR" >> $GITHUB_ENV
             ;;
           "US(free)")
