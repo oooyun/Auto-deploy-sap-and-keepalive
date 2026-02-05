@@ -132,7 +132,7 @@ jobs:
           
           # GCP 区域
           "GCP-AU(Sydney)")
-            echo "CF_API=https://api.cf.jp01.hana.ondemand.com" >> $GITHUB_ENV
+            echo "CF_API=https://api.cf.us02.hana.ondemand.com" >> $GITHUB_ENV
             echo "APP_NAME=gcp-au$RANDOM_STR" >> $GITHUB_ENV
             ;;
           "GCP-BR(São Paulo)")
