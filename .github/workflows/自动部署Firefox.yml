@@ -137,7 +137,7 @@ jobs:
             echo "APP_NAME=firefox-awsusor$RANDOM_STR" >> $GITHUB_ENV
             ;;
           "AWS-EU(Frankfurt)")
-            echo "CF_API=https://api.cf.eu10-005.hana.ondemand.com" >> $GITHUB_ENV
+            echo "CF_API=https://api.cf.eu13.hana.ondemand.com" >> $GITHUB_ENV
             echo "APP_NAME=firefox-waseu$RANDOM_STR" >> $GITHUB_ENV
             ;;
           "AWS-JP(Tokyo)")
