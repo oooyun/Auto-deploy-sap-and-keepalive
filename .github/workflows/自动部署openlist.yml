@@ -339,29 +339,11 @@ jobs:
       run: |
         echo "设置OpenList管理员密码..."
         TASK_NAME="set-openlist-admin-password-${{ github.run_id }}"
-        cf run-task ${{ env.APP_NAME }} "sh -lc 'cd /opt/openlist && ./openlist admin set \"\$OPENLIST_ADMIN_PASSWORD\"'" --name "$TASK_NAME"
-        
-        for i in {1..30}; do
-          TASK_STATE=$(cf tasks ${{ env.APP_NAME }} | awk -v task="$TASK_NAME" '$2 == task {print $3; exit}')
-          echo "OpenList密码设置任务状态: ${TASK_STATE:-unknown}"
-          
-          if [ "$TASK_STATE" = "SUCCEEDED" ]; then
-            echo "OpenList管理员密码设置成功"
-            break
-          fi
-          
-          if [ "$TASK_STATE" = "FAILED" ] || [ "$TASK_STATE" = "CANCELING" ]; then
-            echo "OpenList管理员密码设置失败，查看最近日志:"
-            cf logs ${{ env.APP_NAME }} --recent
-            exit 1
-          fi
-          
-          sleep 5
-        done
-        
-        if [ "$TASK_STATE" != "SUCCEEDED" ]; then
-          echo "OpenList管理员密码设置超时，查看任务列表:"
-          cf tasks ${{ env.APP_NAME }}
+        if cf run-task ${{ env.APP_NAME }} -c 'cd /opt/openlist && ./openlist admin set "$OPENLIST_ADMIN_PASSWORD"' --name "$TASK_NAME" -w; then
+          echo "OpenList管理员密码设置成功"
+        else
+          echo "OpenList管理员密码设置失败，查看最近日志:"
+          cf logs ${{ env.APP_NAME }} --recent
           exit 1
         fi
         
